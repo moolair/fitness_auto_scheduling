@@ -50,6 +50,8 @@ theDayAfterTmrDay = theDayAfterTmr.strftime('date_%Y-%m-%d')
 
 # startDate = today.strftime("date_%Y-%m-%d")
 #startDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Friday')]")))
+
+#select date
 startDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, theDayAfterTmrDay)))
 startDate.click()
 
@@ -61,7 +63,7 @@ startDate.click()
 # cancel.click()
 # quit()
 
-#Select date
+#Select time
 if todayDate == 'Saturday' or todayDate == 'Sunday' or todayDate == 'Monday' or todayDate == 'Tuesday' or todayDate == 'Wednesday':
     selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@class='available-slots']//*[contains(text(), '7:00 AM')]/../..")))
 else:
