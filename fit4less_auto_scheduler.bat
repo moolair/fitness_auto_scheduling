@@ -1,0 +1,1 @@
+"C:\Users\young\OneDrive\Documents\py_projects\fit4less auto scheduling\fitness_auto_scheduling\fit4less_auto_scheduling.py %"

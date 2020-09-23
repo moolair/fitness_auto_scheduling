@@ -9,7 +9,8 @@ from datetime import date
 import datetime
 
 theDayAfterTmr = date.today() + datetime.timedelta(days = 2)
-theDayAfterTmrDay = theDayAfterTmr.strftime('%A')
+theDayAfterTmrDay = theDayAfterTmr.strftime('date_%Y-%m-%d')
 print(theDayAfterTmrDay)
+#date_2020-09-24
 
 time.sleep(3)

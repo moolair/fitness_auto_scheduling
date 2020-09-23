@@ -44,15 +44,14 @@ today = date.today()
 todayDate = today.strftime('%A')
 #print(todayDate)
 theDayAfterTmr = date.today() + datetime.timedelta(days = 2)
-theDayAfterTmrDay = theDayAfterTmr.strftime('%A')
+#theDayAfterTmrDay = theDayAfterTmr.strftime('%A')
+theDayAfterTmrDay = theDayAfterTmr.strftime('date_%Y-%m-%d')
 #print(theDayAfterTmr)
 
 # startDate = today.strftime("date_%Y-%m-%d")
-startDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Friday')]")))
+#startDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Friday')]")))
+startDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, theDayAfterTmrDay)))
 startDate.click()
-# print (selectDate)
-# exit()
-#select day <div id="btn_date_select" class="button dayclub">select day</div>
 
 #Cancel process WHEN I need more sophisticate system********************
 #cancel = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@data-slotdate, 'Friday')]")))
@@ -63,32 +62,20 @@ startDate.click()
 # quit()
 
 #Select date
-selectDate = ""
-if todayDate == 'Saturday':
-    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Monday')]")))
-elif todayDate == 'Sunday':
-    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Tuesday')]")))
-elif todayDate == 'Monday':
-    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Wednesday')]")))
-elif todayDate == 'Tuesday':
-    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Thursday')]")))
-elif todayDate == 'Wednesday':
-    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Friday')]")))
-elif todayDate == 'Thursday':
-    print("No need to selectDate")
-    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='modal_dates_Label']//*[contains(text(), 'Friday')]")))
+if todayDate == 'Saturday' or todayDate == 'Sunday' or todayDate == 'Monday' or todayDate == 'Tuesday' or todayDate == 'Wednesday':
+    selectDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@class='available-slots']//*[contains(text(), '7:00 AM')]/../..")))
 else:
     pass
+driver.execute_script("arguments[0].click();", selectDate)
 
-selectDate.click()
 
 #Reserve spot  
 # reserveDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@class='available-slots']/div[@class='time-slot']//*[contains(text(), '7:00 PM')]/../..")))
 # #time.sleep(2)
 # #reserveDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'book_5b78bc88-20b5-4f73-a516-e85c2d8c8efe')))
 # reserveDate.click()
-# dialogYes = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'dialog_book_yes')))
-# dialogYes.click()
+dialogYes = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'dialog_book_yes')))
+dialogYes.click()
 
 
 
@@ -109,10 +96,10 @@ HowToMakeWebCrawler-With-Selenium저장된 페이지2017. 2. 26. - Selenium은 �
 """
 
 # 검색 완료 후 크롬 창 최대화
-driver.maximize_window()
+#driver.maximize_window()
 # 새로고침
 driver.refresh()
 # 3초 후 드라이버 종료(크롬창 닫힘)
-time.sleep(3)
+time.sleep(1)
 print('Test Completed')
 driver.quit()
