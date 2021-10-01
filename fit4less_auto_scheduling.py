@@ -10,7 +10,10 @@ import datetime
 
 
 # Chrome
-driver = webdriver.Chrome("C:/Python/Python38-32/Lib/site-packages/selenium/chromedriver_win32/chromedriver.exe")
+# YJ Sept 30, 2021 - with new computer chromdriver.exe had to be re-downloaded and Chrome had to be updated with the new version
+# Selenium Download site - https://sites.google.com/a/chromium.org/chromedriver/downloads
+driver = webdriver.Chrome("C:\Program Files (x86)\chromedriver.exe")
+driver.maximize_window()
 # Firefox
 #driver = webdriver.Firefox("C:/Python/Python38-32/Lib/site-packages/selenium/geckodriver.exe")
 # Intenet explorer
@@ -20,7 +23,7 @@ driver = webdriver.Chrome("C:/Python/Python38-32/Lib/site-packages/selenium/chro
 usernameStr = 'yjo8181@gmail.com'
 passwordStr = '5iriet91'
 
-wait = WebDriverWait(driver, timeout=1)
+wait = WebDriverWait(driver, timeout=10)
 # Get into the website
 driver.get("https://myfit4less.gymmanager.com/portal/login.asp")
 
@@ -32,8 +35,24 @@ password = driver.find_element_by_id('password')
 password.send_keys(passwordStr)
 
 # sign in
+wait
 signInButton = driver.find_element_by_id('loginButton')
-signInButton.click()
+# signInButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'loginButton')))
+# signInButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='loginButton']")))
+# signInButton = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='loginButton']"))).click()
+# signInButton = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='col-md-4']/div[@id='loginButton']"))).click()
+# signInButton = driver.find_element_by_id('loginButton')
+# 
+# YJ Sept 30, 2021
+# signInButton.click() is no longer working due to overlap of div. So, it is updated with driver.execute_script().
+# Original code:
+#   signInButton.click()
+# reference 
+#   https://stackoverflow.com/questions/57741875/selenium-common-exceptions-elementclickinterceptedexception-message-element-cl
+driver.execute_script("arguments[0].click();", signInButton)
+
+
+#select Club
 
 #Select Day
 selectDay = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'btn_date_select')))
